@@ -1,3 +1,4 @@
+# TODO: Task 1; Modify this script to generat expected_structure.json
 # scripts/generate_requirements.py
 import json
 import re
