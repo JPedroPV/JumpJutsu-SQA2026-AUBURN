@@ -75,7 +75,7 @@ Pick five methods as per your choice in the V&V scripts or CI workflow to integr
       
       -Are optional fields (steps, notes) useful?
 
-##**Deliverables**
+## **Deliverables**
 
 Group Project
 -A repo hosted on GitHub. Name of the repo will be TEAMNAME-SQA2026-AUBURN
