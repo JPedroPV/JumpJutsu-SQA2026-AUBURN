@@ -14,10 +14,10 @@ Rules:
 """
 
 # Load requirements and test cases
-with open("requirements.json") as f:
+with open("outputs/requirements.json") as f:
     requirements = json.load(f)
 
-with open("test_cases.json") as f:
+with open("outputs/test_cases.json") as f:
     test_cases = json.load(f)
 
 # Set of requirement_ids referenced by test cases
@@ -34,7 +34,7 @@ for r in requirements:
             failures.append(f"Missing field '{field}' in requirement: {r}")
 
     # Rule 2: ID format
-    if rid and not re.match(r"REQ-[A-Z]+-\d{3}[A-Z]$", rid):
+    if rid and not re.match(r"^REQ-\d+\.\d+-\d+[A-Z]\d*$", rid):
         failures.append(f"Invalid requirement_id format: {rid}")
 
     # Rule 3: Must have at least one test case
