@@ -23,5 +23,11 @@
     "test_case_id": "TC-005",
     "requirement_id": "REQ-117.130-003A",
     "description": "Verify that severity and probability of hazards are assessed."
+  },
+
+  {
+    "test_case_id": "TC-006",
+    "requirement_id": "REQ-117.130-003B",
+    "description": "Verify that safety affect on food has been considered."
   }
 ]
