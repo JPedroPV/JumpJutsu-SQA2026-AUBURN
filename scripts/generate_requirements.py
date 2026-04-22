@@ -64,6 +64,7 @@ with open(OUTPUT_JSON, "w") as f:
 
 print(f"Saved {len(requirements)} requirements → {OUTPUT_JSON}")
 
+print(requirements)
 # Generating expected_structure.json
 expected_structure = {}
 for req in requirements:
