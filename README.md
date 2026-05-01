@@ -1,93 +1,85 @@
-# CFR_TEST
-# Verification & Validation Project – 21 CFR Atomic Rules
+# JumpJustsu-SQA2026
 
 ## Project Overview
 
-This project is designed to teach students **Verification & Validation (V&V) of regulatory requirements** using Python scripts, JSON files, and GitHub Actions. Students will work in **groups** to extract rules from CFR sections, produce atomic units, generate expected structure, and create test cases. An **individual component** will involve LLM-based test case generation.
+This project is for the SQA Verification & Validation assignment using 21 CFR 117.130.
+
+The GitHub Actions tab should show a full green passing workflow when everything is working correctly.
 
 ---
 
-## Inputs
+## Important Note About the outputs Folder
 
-1. **Markdown file with CFR section**  
-   - Example: `21_CFR_117.130.md`in Input CFR File
-   - Contains hierarchical rules with **parent sections and atomic units**.
-   - Example snippet: See sample output for requirement_json, expected_structure.json, and test_cases.json
-  
+There may be no files inside the `outputs/` folder when the repository is first opened.
 
-## **Group Project Tasks**
+This is expected because the output files are generated when the scripts run. The `outputs/` folder contains generated files, not hand-written source code.
 
-### **Task 0: Create Project Repo (5 Points)**
-Upload project as a GitHub repo. Add all team members' name. Craete a GitHub action similar to Assignment 6. 
-### **Task 1: Extract and Structure Requirements (20 Points)**
-- Use the provided **Python script** to parse the Markdown CFR section (`21_CFR_117.130.md`) into `requirements.json`.
+If the TA wants to directly view the generated JSON files, they can clone the repository and run the scripts locally using the commands below.
 
-- python command
+---
 
-- python scripts/generate_requirements.py -i "Input CFR File/CFR-117.130.md" -o "Input CFR File/output.json" -c "21 CFR 117.130"
-  
-- **Pick 10 atomic rules** from the parsed list.
-- Modify the provided python script to generate `expected_structure.json` mapping:
-  - Parent requirement ID → list of child letters
-  - Modify the script if necessary to:
-      - Ignore parent/child numbering in the Markdown
-      -Correctly assign child letters
+## How to Check the Project
 
+The TA can check the project in two ways:
 
-### **Task 2: Generate Minimal Test Cases (15 Points)**
-Write a script generate_test_cases.py to produce test_cases.json.
- -Input: requirements.json and selected 10 rules in expected_structure.json.
- -Output format (one test case per requirement):
+1. Check the GitHub Actions run.
+2. Clone the repository and run the scripts locally to generate the output files.
 
-### **Task 3: Verification and Validation (10 Points)**
- Use scripts from Assignment 6 for verification and validation.
+---
 
-### **Task 4: Forensick Integration (10 Points)**
-Pick five methods as per your choice in the V&V scripts or CI workflow to integrate forensick. Example: Requirement skipped/missing, CI build pass/failed.
+## Option 1: Check GitHub Actions
 
-### **Individual Task (40 Points)**
-- Generate LLM-based test cases for 5 selected rules.
-- Use two LLMs: Mistral and quantized Mistral.
-- Each test case should include:
+1. Open the GitHub repository.
+2. Click the **Actions** tab.
+3. Open the latest workflow run named:
 
-   -test_case_id: Unique ID (e.g., TC-001)
-   - requirement_id: Requirement being tested
-   -description: What the test verifies
-   - input_data: What input the test uses
-   -expected_output: What result is expected
-   -steps (optional): Step-by-step actions
-  - notes (optional): Any special assumptions
+```yaml
+github-actions-JumpJustsu-SQA2026
+```
 
- -Compare coverage, correctness, and completeness of outputs.
- 
- -Coverage:
-      -Did both LLMs produce at least one test case for this requirement?
-      
- -Correctness:
-      -Does the description match the requirement?
-   
-      -Check if the test actually tests what the requirement says.
-      
- -Completeness:
-      -Are all required fields present?
-      
-      -test_case_id, requirement_id, description, input_data, expected_output
-      
-      -Are optional fields (steps, notes) useful?
+4. Confirm that the run is green.
 
-## **Deliverables**
+A green run means GitHub Actions successfully:
 
-Group Project
-- A repo hosted on GitHub. Name of the repo will be TEAMNAME-SQA2026-AUBURN
+- Generated `outputs/requirements.json`
+- Generated `outputs/expected_structure.json`
+- Generated `outputs/test_cases.json`
+- Ran verification
+- Ran validation
 
-- Full completion of all activities as recorded on the GitHub repository
+The generated output files are created inside the GitHub Actions runner during the workflow. They may not appear permanently in the repository unless they are committed.
 
-- Report describing what activities your performed and what you have learned
+---
 
-- Logs/screenshots that show execution of forensics and GitHub action
+## Option 2: Generate and View the Output Files Locally
 
-Individual
-Upload scripts and a report of comparison of test cases generated by LLMs on CANVAS
+If the TA wants to directly view the generated JSON files, they can clone the repository and run the scripts manually.
 
-**Deadline**
- April 24, 2026
+From the root of the cloned repository, run:
+
+```bash
+python scripts/generate_requirements.py -i "Input CFR File/CFR-117.130.md" -o "outputs/requirements.json" -c "21 CFR 117.130"
+python scripts/generate_test_cases.py
+python scripts/verify.py
+python scripts/validate.py
+```
+
+The scripts should be run from the root project folder because the paths are written relative to the repository root.
+
+After running the commands, the `outputs/` folder should contain:
+
+```text
+requirements.json
+expected_structure.json
+test_cases.json
+```
+
+The important files to check are:
+
+```text
+outputs/requirements.json
+outputs/expected_structure.json
+outputs/test_cases.json
+```
+
+If `verify.py` and `validate.py` both pass, the project is working correctly.
